@@ -1,5 +1,5 @@
-import 'package:app_passageiro/src/model/place.item.res.dart';
-import 'package:app_passageiro/src/ui/pages/ride_picker_page.dart';
+import 'package:app_passageiro/src/model/requisicao.dart';
+import 'package:app_passageiro/src/interfaces/pages/selecao_viagem.dart';
 import 'package:flutter/material.dart';
 
 class RidePicker extends StatefulWidget {

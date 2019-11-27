@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:app_passageiro/src/ui/pages/phone_auth.dart';
+import 'package:app_passageiro/src/interfaces/pages/autenticacao_celular.dart';
 
 const double minHeight = 230;
 String phoneNo;

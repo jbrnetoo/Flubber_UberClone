@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:app_passageiro/src/model/place.item.res.dart';
-import 'package:app_passageiro/src/model/step_res.dart';
+import 'package:app_passageiro/src/model/requisicao.dart';
+import 'package:app_passageiro/src/model/progresso_requisicao.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -41,7 +41,7 @@ class PlaceService {
         output +
         "?origin=" +
         parameters +
-        "&key=AIzaSyDPaFRwkTfLGUgDovW6ZrldT9e77mYR7sU";
+        "&key=AIzaSyADtto0OWlRXRJFdebWiX5KqyLHdakBOUU";
     final JsonDecoder _decoder = JsonDecoder();
     return http.get(url).then((http.Response response) {
       String res = response.body;

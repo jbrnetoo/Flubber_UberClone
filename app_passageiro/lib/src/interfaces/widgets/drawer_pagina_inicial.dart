@@ -35,10 +35,10 @@ class _HomeMenuDrawerState extends State<HomeMenuDrawer> {
         ),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
           linkMenuDrawer('Pagamento', () {
-            Navigator.pushNamed(context, '/homepage');
+            Navigator.pushNamed(context, '/payment');
           }),
           linkMenuDrawer('Suas Viagens', () {
-            Navigator.pushNamed(context, '/homepage');
+            Navigator.pushNamed(context, '/your_trip');
           }),
           linkMenuDrawer('Corridas', () {
             Navigator.pushNamed(context, '/homepage');

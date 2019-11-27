@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:app_passageiro/src/ui/widgets/ride_picker.dart';
+import 'package:app_passageiro/src/interfaces/widgets/caminho.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import 'package:app_passageiro/src/util/map_util.dart';
-import 'package:app_passageiro/src/ui/widgets/home_menu_drawer.dart';
-import 'package:app_passageiro/src/ui/widgets/functionalButton.dart';
-import 'package:app_passageiro/src/model/place.item.res.dart';
+import 'package:app_passageiro/src/interfaces/widgets/drawer_pagina_inicial.dart';
+import 'package:app_passageiro/src/interfaces/widgets/botao_funcional.dart';
+import 'package:app_passageiro/src/model/requisicao.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -23,13 +23,13 @@ class _HomePageState extends State<HomePage> {
   GoogleMapController _controller;
   MapUtil mapUtil = MapUtil();
   Location _locationService = Location();
-  LatLng currentLocation;
-  LatLng _center = LatLng(-10.9472, -37.0731);
-  bool _permission = false;
+  LatLng localizacaoAtual;
+  LatLng _pontoCentral = LatLng(-10.9472, -37.0731);
+  bool _permissao = false;
   List<Marker> _allMarkers = List();
-  List<Polyline> routes = new List();
-  bool done = false;
-  String error;
+  List<Polyline> rotas = new List();
+  bool terminou = false;
+  String erro;
 
   @override
   void initState() {
@@ -75,7 +75,7 @@ class _HomePageState extends State<HomePage> {
           GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: CameraPosition(
-              target: _center,
+              target: _pontoCentral,
               zoom: 13.0,
             ),
             onMapCreated: (GoogleMapController controller) {
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               mapCreated(controller);
             },
             markers: Set<Marker>.of(_allMarkers),
-            polylines: Set<Polyline>.of(routes),
+            polylines: Set<Polyline>.of(rotas),
           ),
           Positioned(
             left: 0,
@@ -155,13 +155,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   void onPlaceSelected(PlaceItemRes place, bool fromAddress) {
-    var mkId = fromAddress ? "from_address" : "to_address";
+    var mkId = fromAddress ? "Ponto de Partida" : "Destino";
     _addMarker(mkId, place);
     addPolyline();
   }
 
   void _addMarker(String mkId, PlaceItemRes place) async {
-    // remove old
     _allMarkers.remove(mkId);
     //_mapController.clearMarkers();
 
@@ -173,11 +172,11 @@ class _HomePageState extends State<HomePage> {
     );
 
     setState(() {
-      if (mkId == "from_address") {
+      if (mkId == "Ponto de Partida") {
         _allMarkers[0] = (marker);
         List mmmm = _allMarkers;
         print(mmmm); 
-      } else if (mkId == "to_address") {
+      } else if (mkId == "Destino") {
         _allMarkers.add(marker);  
         List mmmm = _allMarkers;
         print(mmmm);      
@@ -186,12 +185,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   getCurrentLocation() async {
-    currentLocation = await mapUtil.getCurrentLocation();
-    _center = LatLng(currentLocation.latitude, currentLocation.longitude);
+    localizacaoAtual = await mapUtil.getCurrentLocation();
+    _pontoCentral = LatLng(localizacaoAtual.latitude, localizacaoAtual.longitude);
     Marker marker = Marker(
       markerId: MarkerId('location'),
-      position: _center,
-      infoWindow: InfoWindow(title: 'My Location'),
+      position: _pontoCentral,
+      infoWindow: InfoWindow(title: 'Minha Localização'),
+      onTap: () {
+        print("Marker clicado!");
+        moveTo(localizacaoAtual.latitude, localizacaoAtual.longitude);
+      },
     );
     setState(() {
       _allMarkers.add(marker);
@@ -224,7 +227,7 @@ class _HomePageState extends State<HomePage> {
           );
 
           setState(() {
-            routes.add(polyline);
+            rotas.add(polyline);
           });
         });
       }
@@ -237,11 +240,11 @@ class _HomePageState extends State<HomePage> {
     LocationData location;
     try {
       bool serviceStatus = await _locationService.serviceEnabled();
-      print("Service status: $serviceStatus");
+      print("Status do Serviço: $serviceStatus");
       if (serviceStatus) {
-        _permission = await _locationService.requestPermission();
-        print("Permission: $_permission");
-        if (_permission) {
+        _permissao = await _locationService.requestPermission();
+        print("Permissão: $_permissao");
+        if (_permissao) {
           location = await _locationService.getLocation();
           Marker marker = Marker(
             markerId: MarkerId('from_address'),
@@ -250,17 +253,17 @@ class _HomePageState extends State<HomePage> {
           );
           if (mounted) {
             setState(() {
-              currentLocation = LatLng(location.latitude, location.longitude);
-              _center =
-                  LatLng(currentLocation.latitude, currentLocation.longitude);
+              localizacaoAtual = LatLng(location.latitude, location.longitude);
+              _pontoCentral =
+                  LatLng(localizacaoAtual.latitude, localizacaoAtual.longitude);
               _allMarkers.add(marker);
-              done = true;
+              terminou = true;
             });
           }
         }
       } else {
         bool serviceStatusResult = await _locationService.requestService();
-        print("Service status activated after request: $serviceStatusResult");
+        print("Serviço de status ativado após requisição: $serviceStatusResult");
         if (serviceStatusResult) {
           initPlatformState();
         }
@@ -268,9 +271,9 @@ class _HomePageState extends State<HomePage> {
     } on PlatformException catch (e) {
       print(e);
       if (e.code == 'PERMISSION_DENIED') {
-        error = e.message;
+        erro = e.message;
       } else if (e.code == 'SERVICE_STATUS_ERROR') {
-        error = e.message;
+        erro = e.message;
       }
       //location = null;
     }

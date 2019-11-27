@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:app_passageiro/src/repository/place_service.dart';
+import 'package:app_passageiro/src/repository/servico_requisicao.dart';
 
 class PlaceBloc {
   var _placeController = StreamController.broadcast();

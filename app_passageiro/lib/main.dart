@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:app_passageiro/src/ui/pages/login.dart';
-import 'package:app_passageiro/src/ui/pages/home_page.dart';
+import 'package:app_passageiro/src/interfaces/pages/login.dart';
+import 'package:app_passageiro/src/interfaces/pages/pagina_inicial.dart';
+import 'package:app_passageiro/src/interfaces/pages/pagamento.dart';
+import 'package:app_passageiro/src/interfaces/pages/adicionar_pagamento.dart';
+import 'package:app_passageiro/src/interfaces/pages/minhas_viagens.dart';
 
 void main() => runApp(FlubberApp());
 
@@ -17,10 +20,10 @@ class FlubberApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/homepage': (BuildContext context) => HomePage(),
         '/': (context) => LoginView(),
-        // '/payment': (context) => PaymentPage(),
-        // '/add_payment': (context) => AddPaymentMethodPage(),
+        '/payment': (context) => PaymentPage(),
+        '/add_payment': (context) => AddPaymentMethodPage(),
+        '/your_trip': (context) => YourTripPage(),
         // '/add_card': (context) => AddCardPage(),
-        // '/your_trip': (context) => YourTripPage(),
         // '/select_issue': (context) => SelectIssuePage(),
         // '/free_rides': (context) => FreeRidesPage(),
         // '/help': (context) => HelpPage(),

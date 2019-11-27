@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:app_passageiro/src/ui/pages/home_page.dart';
+import 'package:app_passageiro/src/interfaces/pages/pagina_inicial.dart';
 
 class PhoneAuthentication{
 

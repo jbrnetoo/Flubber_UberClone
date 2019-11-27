@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:app_passageiro/src/ui/widgets/exhibition_bottom.dart';
+import 'package:app_passageiro/src/interfaces/widgets/tela_exibicao.dart';
 
 class LoginPage extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:app_passageiro/src/blocs/place_bloc.dart';
-import 'package:app_passageiro/src/model/place.item.res.dart';
-import 'package:app_passageiro/src/ui/widgets/home_menu_drawer.dart';
+import 'package:app_passageiro/src/blocs/colocar_bloco.dart';
+import 'package:app_passageiro/src/model/requisicao.dart';
+import 'package:app_passageiro/src/interfaces/widgets/drawer_pagina_inicial.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -22,7 +22,7 @@ class _RidePickerPageState extends State<RidePickerPage> {
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _cameraPosition = CameraPosition(
-    target: LatLng(-8.913025, 13.202462),
+    target: LatLng(-10.9091, -37.0677),
     zoom: 17.0,
   );
 
@@ -122,10 +122,17 @@ class _RidePickerPageState extends State<RidePickerPage> {
                                     width: 40,
                                     height: 50,
                                     child: Center(
-                                      child: Icon(
+                                      child: FlatButton(
+                                       child: Icon(
                                         Icons.close,
                                         size: 18,
                                       ),
+                                      onPressed: () => Navigator.of(context).pop(),
+                                      ),
+                                      // child: Icon(
+                                      //   Icons.close,
+                                      //   size: 18,
+                                      // ),
                                     ),
                                   ),
                                   Column(
@@ -223,3 +230,4 @@ class _RidePickerPageState extends State<RidePickerPage> {
     );
   }
 }
+

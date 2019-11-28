@@ -72,8 +72,8 @@ class _YourTripViewState extends State<YourTripView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text("Your Trips"),
+        backgroundColor: Colors.lightBlue[200],
+        title: Text("Suas Viagens"),
         
       ),
       body: Column(
@@ -100,7 +100,7 @@ class _YourTripViewState extends State<YourTripView> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text("Today at 23:05 PM", style: TextStyle(fontWeight: FontWeight.bold,)),
+                    Text("Hoje as 23:05 PM", style: TextStyle(fontWeight: FontWeight.bold,)),
                     Spacer(),
                     Text("\$7.42", style: TextStyle(fontWeight: FontWeight.bold,)),
                   ],

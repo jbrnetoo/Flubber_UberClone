@@ -23,11 +23,6 @@ class FlubberApp extends StatelessWidget {
         '/payment': (context) => PaymentPage(),
         '/add_payment': (context) => AddPaymentMethodPage(),
         '/your_trip': (context) => YourTripPage(),
-        // '/add_card': (context) => AddCardPage(),
-        // '/select_issue': (context) => SelectIssuePage(),
-        // '/free_rides': (context) => FreeRidesPage(),
-        // '/help': (context) => HelpPage(),
-        // '/settings': (context) => SettingsPage(),
       },
     );
   }

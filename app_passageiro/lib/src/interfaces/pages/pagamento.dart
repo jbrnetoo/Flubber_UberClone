@@ -17,7 +17,7 @@ class _PaymentViewState extends State<PaymentView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.lightBlue[200],
         title: Text("Pagamento"),
       ),
       body: Container(

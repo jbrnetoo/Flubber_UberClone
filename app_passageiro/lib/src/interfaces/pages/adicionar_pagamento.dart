@@ -17,7 +17,7 @@ class _AddPaymentMethodViewState extends State<AddPaymentMethodView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.lightBlue[200],
         title: Text("Adicionar Método de Pagamento"),
       ),
       body: Container(
